@@ -1,0 +1,90 @@
+<h1>InputTimes#new</h1>
+<p>Find me in app/views/input_times/new.html.erb</p>
+<% sessions = session[:current_event_params] %>
+<%= stdate = "#{sessions["stdate(1i)"]}-#{sessions["stdate(2i)"]}-#{sessions["stdate(3i)"]}".to_date %>, <%= enddate = "#{sessions["enddate(1i)"]}-#{sessions["enddate(2i)"]}-#{sessions["enddate(3i)"]}".to_date %>
+
+<% loop_count = (enddate - stdate).to_i %>
+<% span = 1 %>
+<% if span == 1 then width = 10 %>
+<% elsif span == 2 then width = 20 %>
+<% elsif span == 4 then width = 40 %>
+<% elsif span == 48 then width = 480 %>
+<% end %>
+<% loop_times = 48/1 %>
+
+<%= form_with model:@form,url:time_schedules_path,method: :post do |f| %>
+<% day = -1%>
+<%= f.fields_for :time_schedules do |t| %>
+    <% day += 1 %>
+    <%= one_day = stdate+day %>
+	<%= t.hidden_field :username, :value => "hoge" %>
+	<%= t.hidden_field :event_id, :value => session[:id].to_i %> 
+	<%= t.hidden_field :eventday, :value => one_day %>
+        <div class="time_schedule" style="cursor:pointer;">
+                <% for num in 0..(loop_times-1) do %>
+                        <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",title:false} %>
+                        <%= t.label :"t#{num}",{class:"check_box_label",style:"width: #{width-0.5}px; left: #{num*width}px"} %>
+                <% end %>
+        </div>
+<% end %>
+<%= f.submit "Input Your Schedule", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+        var pushing_flag = 0; // マウスの状態を示すフラグ(1なら領域内でボタンが押されている)
+        var first_flag = 0; //一つ目のセルだけクリックするかどうか
+        var first_id = "id";
+        // id(=click_area)に対するマウスボタンの状態を検知
+        $(function() {
+                $('.day_schedule .check_box_label')
+                .mousedown(function(){
+                // 領域内でマウスボタンを押した時
+                pushing_flag = 1;
+                    first_flag = 1;
+                    jQuery(":hover").each(function(){
+                        if($(this).attr('type')=='checkbox'){
+                                first_id = $(this).attr('id');
+                        }
+                    });
+                }).mouseleave(function(){
+                    // マウスカーソルが領域外になった時
+                    if(first_flag==1){
+                        first_flag = 0;
+                        if ($("#"+first_id).prop('checked')) {
+                                $("#"+first_id).prop('checked',false);
+                        } else {
+                                console.log("first cell チェックしたい！！");
+                                $("#"+first_id).prop('checked',true);
+                                }
+                        }
+                }).mouseenter(function(){
+                    // マウスカーソルが領域内になった時
+                    if (pushing_flag==1) {
+                        jQuery(":hover").each(function(){
+                                if($(this).attr('type')=='checkbox'){
+                                        var id = $(this).attr('id');
+                                        console.log("id:"+id+"は"+$("#"+id).prop('checked'));
+                                        if ($("#"+id).prop('checked')) {
+                                                $("#"+id).prop('checked',false);
+                                        } else {
+                                                console.log("first cell チェックしたい！！");
+                                                $("#"+id).prop('checked',true);
+                                        }
+                                }
+                        });
+                }
+                });
+    });
+    $(function(){
+        $('.day_schedule')
+        .mouseup(function(){
+                    // 領域内でマウスボタンを離した時
+                    pushing_flag = 0;
+                    first_flag = 0;
+                }).mouseleave(function(){
+                    // マウスカーソルが領域外になった時
+                    pushing_flag = 0;
+                });
+    });
+</script>
+

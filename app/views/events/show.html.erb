@@ -1,0 +1,84 @@
+<h1>Events#show</h1>
+<p>Find me in app/views/events/show.html.erb</p>
+
+<%= @event.id %>, <%= @event.owner %>, <%= @event.stdate %>, <%= @event.enddate %>
+
+<% loop_count = (@event.enddate - @event.stdate).to_i %>
+<% span = @event.span %>
+<% if span == 1 then width = 10 %>
+<% elsif span == 2 then width = 20 %>
+<% elsif span == 4 then width = 40 %>
+<% elsif span == 48 then width = 480 %>
+<% end %>
+<% loop_times = 48/span %>
+
+<%= form_for(@event, url: events_path) do |f| %>
+<% for day in 0..loop_count do %>
+	<%= day %>
+	<div class="day_schedule" style="cursor:pointer;">
+		<% for num in 0..loop_times do %>
+			<input type="checkbox" id="checkbox_<%= day %>_<%= num %>" name="check" class="check_box" style="width: <%= width-0.5 %>px; left: <%= num*width %>px">
+			<label for="checkbox_<%= day %>_<%= num %>" class="check_box_label" style="width: <%= width-0.5 %>px; left: <%= num*width %>px"></label>
+		<% end %>
+	</div>
+<% end %>
+<%= f.submit "Input Your Schedule", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+	var pushing_flag = 0; // マウスの状態を示すフラグ(1なら領域内でボタンが押されている)
+	var first_flag = 0; //一つ目のセルだけクリックするかどうか
+	var first_id = "id";
+	// id(=click_area)に対するマウスボタンの状態を検知
+	$(function() {
+  		$('.day_schedule .check_box_label')
+  		.mousedown(function(){
+	    	// 領域内でマウスボタンを押した時
+	    	pushing_flag = 1;
+		    first_flag = 1;
+		    jQuery(":hover").each(function(){
+		    	if($(this).attr('type')=='checkbox'){
+		    		first_id = $(this).attr('id');
+		    	}
+		    });
+		}).mouseleave(function(){
+		    // マウスカーソルが領域外になった時
+		    if(first_flag==1){
+		    	first_flag = 0;
+		    	if ($("#"+first_id).prop('checked')) {
+		    		$("#"+first_id).prop('checked',false);
+		    	} else {
+		    		console.log("first cell チェックしたい！！");
+		    		$("#"+first_id).prop('checked',true);
+		   		}
+		   	}
+		}).mouseenter(function(){
+		    // マウスカーソルが領域内になった時
+		    if (pushing_flag==1) {
+		    	jQuery(":hover").each(function(){
+		    		if($(this).attr('type')=='checkbox'){
+		    			var id = $(this).attr('id');
+		    			console.log("id:"+id+"は"+$("#"+id).prop('checked'));
+		    			if ($("#"+id).prop('checked')) {
+		    				$("#"+id).prop('checked',false);
+		    			} else {
+		    				console.log("first cell チェックしたい！！");
+		    				$("#"+id).prop('checked',true);
+		    			}
+		    		}
+		    	});
+    		}
+		});
+    });
+    $(function(){
+    	$('.day_schedule')
+    	.mouseup(function(){
+		    // 領域内でマウスボタンを離した時
+		    pushing_flag = 0;
+		    first_flag = 0;
+		}).mouseleave(function(){
+		    // マウスカーソルが領域外になった時
+		    pushing_flag = 0;
+		});
+    });
+</script>
