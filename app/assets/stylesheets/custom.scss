@@ -156,6 +156,23 @@ input {
 	position: relative;
 	cursor: pointer;
 }
+.time_schedule_label {
+  text-align: center;
+  width: 480px;
+  height: 15px;
+  position: relative;
+}
+.time_schedule_label_cell {
+  text-align: left;
+  width: 20px;
+  height: 15px;
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  border-bottom: transparent; /* 下辺が透明になる */
+  position: absolute;
+    top: 0px;
+    left: 0px;
+}
 
 .timesel_disabled {
 	float: left;
@@ -176,11 +193,11 @@ input {
 	line-height: 45px; /* 行の高さを指定する */
 	padding-left: 0px; /* ラベル内左側の余白を指定する */
 	padding-right: 0px; /* ラベル内右側の余白を指定する */
-	border: 1px solid #006DD9;/* ラベルの境界線を実線で指定する */
+	border: 1px solid #00bfff;/* ラベルの境界線を実線で指定する */
 	border-radius: 2px; /* 角丸を指定する */
 	position: absolute;
-	top: 0px;
-  	left: 0px;
+    top: 0px;
+    left: 0px;
 }
 input[type=checkbox]{
 	display: none;

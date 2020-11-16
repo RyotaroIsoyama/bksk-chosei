@@ -9,6 +9,7 @@ class EventsController < ApplicationController
 
   def create
   	@event = Event.new(event_params)
+	@event.hashforurl = Digest::SHA1.hexdigest(Time.now.to_s)
 	session[:current_event_params]=event_params
 	if @event.save
 		session[:id]=@event.id

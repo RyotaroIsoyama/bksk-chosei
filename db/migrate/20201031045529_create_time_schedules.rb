@@ -3,7 +3,7 @@ class CreateTimeSchedules < ActiveRecord::Migration[6.0]
     create_table :time_schedules do |t|
       t.string :username
       t.integer :event_id
-      t.integer :eventday
+      t.date :eventday
       t.boolean :t0
       t.boolean :t1
       t.boolean :t2

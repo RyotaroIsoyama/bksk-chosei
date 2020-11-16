@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_10_31_045529) do
   create_table "time_schedules", force: :cascade do |t|
     t.string "username"
     t.integer "event_id"
-    t.integer "eventday"
+    t.date "eventday"
     t.boolean "t0"
     t.boolean "t1"
     t.boolean "t2"

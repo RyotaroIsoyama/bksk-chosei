@@ -8,7 +8,7 @@ class TimeSchedulesController < ApplicationController
 	stdate = stdate_str.to_date
 	enddate = "#{session[:current_event_params]['enddate(1i)']}-#{session[:current_event_params]['enddate(2i)']}-#{session[:current_event_params]['enddate(3i)']}".to_date
 
-	days = (enddate-stdate).to_i
+	days = (enddate-stdate).to_i + 1
 
 	@form = Form::TimeScheduleCollection.new({},days)
   end
@@ -21,6 +21,13 @@ class TimeSchedulesController < ApplicationController
 	else
 		render 'new'
 	end
+  end
+
+  def list
+    @event = Event.where(hashforurl: params[:h]).first
+    days = (@event.enddate - @event.stdate).to_i + 1
+
+    @form = Form::TimeScheduleCollection.new({},days)
   end
 
   private

@@ -1,7 +1,7 @@
-<h1>InputTimes#new</h1>
+<h1>InputTimes#list</h1>
 <p>Find me in app/views/input_times/new.html.erb</p>
-<% sessions = session[:current_event_params] %>
-<%= stdate = "#{sessions["stdate(1i)"]}-#{sessions["stdate(2i)"]}-#{sessions["stdate(3i)"]}".to_date %>, <%= enddate = "#{sessions["enddate(1i)"]}-#{sessions["enddate(2i)"]}-#{sessions["enddate(3i)"]}".to_date %>
+<%= @event %>
+<%= stdate = @event.stdate.to_date %>, <%= enddate = @event.enddate.to_date %>
 
 <% width = 10 %>
 <% loop_times = 48 %>
@@ -12,7 +12,7 @@
     <% day += 1 %>
     <%= one_day = stdate+day %>
 	<%= t.hidden_field :username, :value => "hoge" %>
-	<%= t.hidden_field :event_id, :value => session[:id].to_i %> 
+	<%= t.hidden_field :event_id, :value => @event.id %> 
 	<%= t.hidden_field :eventday, :value => one_day %>
 	<div class="time_schedule_label">
 	  <% for num in 0..23 do %>
