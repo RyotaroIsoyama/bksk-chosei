@@ -174,10 +174,20 @@ input {
     left: 0px;
 }
 
-.timesel_disabled {
-	float: left;
-	background-color: red;
-	color: red;
+.check_mark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 9.5px;
+	border: solid 1px #00bfff;
+	border-radius: 3px;
+	box-sizing: border-box;
+	background-color: orange;
+}
+
+.check_box_block {
+	display: block;
 	width: 10px;
 	height: 20px;
 	position: absolute;
@@ -199,10 +209,10 @@ input {
     top: 0px;
     left: 0px;
 }
-input[type=checkbox]{
+.check_box_block input[type=checkbox]{
 	display: none;
 }
-.check_box:checked + .check_box_label {
+.check_box_block input:checked + .check_mark {
   background-color: orange;
 }
 

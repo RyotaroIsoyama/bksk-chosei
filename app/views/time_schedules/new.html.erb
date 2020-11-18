@@ -23,8 +23,7 @@
 	</div>
         <div class="time_schedule" style="cursor:pointer;">
                 <% for num in 0..(loop_times-1) do %>
-                        <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",label:""} %>
-                        <%= t.label :"t#{num}"," ",{class:"check_box_label",style:"width: #{width-0.5}px; left: #{num*width}px"} %>
+                        <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",label:false} %>
                 <% end %>
         </div>
 <% end %>

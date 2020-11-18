@@ -13,7 +13,7 @@ class EventsController < ApplicationController
 	session[:current_event_params]=event_params
 	if @event.save
 		session[:id]=@event.id
-  		redirect_to controller: 'time_schedules',action: 'new'
+  		redirect_to 'http://localhost:3000/time_schedules/list?h=' + @event.hashforurl
   	end
   end
 
