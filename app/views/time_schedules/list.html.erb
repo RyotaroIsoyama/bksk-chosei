@@ -23,9 +23,8 @@
 	</div>
         <div class="time_schedule" style="cursor:pointer;">
                 <% for num in 0..(loop_times-1) do %>
-			<div class="check_box_block" style="left:<%= num*width %>
                         <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",label:false} %>
-			<span class="check_mark" style="left:<%= num*width %>px"></span></div>
+			<span class="check_mark" style="left:<%= num*width %>px"></span>
                 <% end %>
         </div>
 <% end %>
@@ -41,6 +40,7 @@
         $(function() {
                 $('.time_schedule .check_box')
                 .mousedown(function(){
+		console.log("check_box is clicked")
                 // 領域内でマウスボタンを押した時
                 pushing_flag = 1;
                     first_flag = 1;

@@ -183,7 +183,6 @@ input {
 	border: solid 1px #00bfff;
 	border-radius: 3px;
 	box-sizing: border-box;
-	background-color: orange;
 }
 
 .check_box_block {
@@ -209,10 +208,10 @@ input {
     top: 0px;
     left: 0px;
 }
-.check_box_block input[type=checkbox]{
+.time_schedule input[type=checkbox]{
 	display: none;
 }
-.check_box_block input:checked + .check_mark {
+.time_schedule input:checked + .check_mark {
   background-color: orange;
 }
 
