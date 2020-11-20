@@ -38,40 +38,30 @@
         var first_id = "id";
         // id(=click_area)に対するマウスボタンの状態を検知
         $(function() {
-                $('.time_schedule .check_box')
+                $('.time_schedule .check_mark')
                 .mousedown(function(){
 		console.log("check_box is clicked")
                 // 領域内でマウスボタンを押した時
                 pushing_flag = 1;
                     first_flag = 1;
                     jQuery(":hover").each(function(){
-                        if($(this).attr('type')=='checkbox'){
-                                first_id = $(this).attr('id');
-                        }
-                    });
-                }).mouseleave(function(){
-                    // マウスカーソルが領域外になった時
-                    if(first_flag==1){
-                        first_flag = 0;
-                        if ($("#"+first_id).prop('checked')) {
-                                $("#"+first_id).prop('checked',false);
-                        } else {
-                                console.log("first cell チェックしたい！！");
-                                $("#"+first_id).prop('checked',true);
+                        if($(this).prev('input').attr('type')=='checkbox'){
+				if ($(this).prev('input').prop('checked')) {
+                         		$(this).prev('input').prop('checked',false);
+                        	} else {
+                               		$(this).prev('input').prop('checked',true);
                                 }
                         }
+                    });
                 }).mouseenter(function(){
                     // マウスカーソルが領域内になった時
                     if (pushing_flag==1) {
                         jQuery(":hover").each(function(){
-                                if($(this).attr('type')=='checkbox'){
-                                        var id = $(this).attr('id');
-                                        console.log("id:"+id+"は"+$("#"+id).prop('checked'));
-                                        if ($("#"+id).prop('checked')) {
-                                                $("#"+id).prop('checked',false);
+                                if($(this).prev('input').attr('type')=='checkbox'){
+                                        if ($(this).prev('input').prop('checked')) {
+                                                $(this).prev('input').prop('checked',false);
                                         } else {
-                                                console.log("first cell チェックしたい！！");
-                                                $("#"+id).prop('checked',true);
+                                                $(this).prev('input').prop('checked',true);
                                         }
                                 }
                         });
