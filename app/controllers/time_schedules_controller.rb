@@ -26,6 +26,7 @@ class TimeSchedulesController < ApplicationController
   def list
     @event = Event.where(hashforurl: params[:h]).first
     days = (@event.enddate - @event.stdate).to_i + 1
+    @startTime = @event.stdate
 
     @form = Form::TimeScheduleCollection.new({},days)
   end
