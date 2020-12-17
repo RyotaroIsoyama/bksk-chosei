@@ -11,6 +11,10 @@ capybara-*.html
 *.orig
 rerun.txt
 pickle-email-*.html
+
+credentials.yaml
+client_secret.json
+
 =======
 # See https://help.github.com/articles/ignoring-files for more about ignoring files.
 #
