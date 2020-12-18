@@ -7,7 +7,6 @@ class TimeSchedulesController < ApplicationController
 	stdate_str = session[:current_event_params]["stdate(1i)"] + "-" + session[:current_event_params]["stdate(2i)"] + "-" + session[:current_event_params]["stdate(3i)"]
 	stdate = stdate_str.to_date
 	enddate = "#{session[:current_event_params]['enddate(1i)']}-#{session[:current_event_params]['enddate(2i)']}-#{session[:current_event_params]['enddate(3i)']}".to_date
-
 	days = (enddate-stdate).to_i + 1
 
 	@form = Form::TimeScheduleCollection.new({},days)

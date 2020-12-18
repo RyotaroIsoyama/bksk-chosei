@@ -20,7 +20,8 @@ class EventsController < ApplicationController
 	session[:hashforurl] = @event.hashforurl
 	if @event.save
 		session[:id]=@event.id
-		redirect_to action: :token
+		redirect_url = ENV["HOST"] + "/time_schedules/list?h=" + @event.hashforurl
+		redirect_to redirect_url
   	end
   end
 
