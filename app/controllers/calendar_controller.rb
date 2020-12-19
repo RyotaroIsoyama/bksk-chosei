@@ -49,17 +49,21 @@ class CalendarController < ApplicationController
   end
 
   def fetchEvents(service)
-    # Fetch the next 10 events for the user
     calendar_id = MY_CALENDAR_ID
+    startTime = session[:startTime].to_time
+    endTime = session[:endTime].to_time
     response = service.list_events(calendar_id,
                                    single_events: true,
                                    order_by:      "startTime",
-                                   time_min:      @startTime.rfc3339,
-                                   time_max:      @endTime.rfc3339)
+                                   time_min:      startTime.rfc3339,
+                                   time_max:      endTime.rfc3339)
     puts "Upcoming events:"
     puts "No upcoming events found" if response.items.empty?
     response.items.each do |event|
       start = event.start.date || event.start.date_time
+      end = event.end.date || event.end.date_time
+      session[:eventsStEnd] << start
+      session[:eventsStEnd] << end
       puts "- #{event.summary} (#{start})"
     end
   end

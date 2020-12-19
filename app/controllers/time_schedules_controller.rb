@@ -1,4 +1,7 @@
 class TimeSchedulesController < ApplicationController
+
+  CREDENTIALS_URL = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=374716094513-hu2vo0hm9ennqc7rtjhejlg39upaso6s.apps.googleusercontent.com&redirect_uri=#{ENV["HOST"]}/oauth2callback&scope=https://www.googleapis.com/auth/calendar&access_type=offline&approval_prompt=force"
+
   def show
 	@time_schedule = TimeSchedule.find(params[:id])
   end
@@ -23,9 +26,11 @@ class TimeSchedulesController < ApplicationController
   end
 
   def list
+    session[:url] = CREDENTIALS_URL
     @event = Event.where(hashforurl: params[:h]).first
     days = (@event.enddate - @event.stdate).to_i + 1
-    @startTime = @event.stdate
+    session[:startTime] = @event.stdate.strftime("%Y%m%d %H:%M:%S")
+    session[:endTime] = (@event.enddate + 1).strftime("%Y%m%d %H:%M:%S")
 
     @form = Form::TimeScheduleCollection.new({},days)
   end

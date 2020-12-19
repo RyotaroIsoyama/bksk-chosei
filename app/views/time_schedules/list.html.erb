@@ -6,6 +6,8 @@
 <% width = 10 %>
 <% loop_times = 48 %>
 
+<%= link_to "googleカレンダーと連携する", session[:url] %>
+
 <%= form_with model:@form,url:time_schedules_path,method: :post do |f| %>
 <% day = -1%>
 <%= f.fields_for :time_schedules do |t| %>
