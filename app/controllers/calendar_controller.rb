@@ -45,7 +45,8 @@ class CalendarController < ApplicationController
     calendar.client_options.application_name = APPLICATION_NAME
     calendar.authorization = authorize
     fetchEvents(calendar)
-    redirect_to action: :index
+    redirect_url = ENV["HOST"] + "/time_schedules/list?h=" + session[:hashforurl]
+    redirect_to redirect_url
   end
 
   def fetchEvents(service)
@@ -60,11 +61,11 @@ class CalendarController < ApplicationController
     puts "Upcoming events:"
     puts "No upcoming events found" if response.items.empty?
     response.items.each do |event|
-      start = event.start.date || event.start.date_time
-      end = event.end.date || event.end.date_time
-      session[:eventsStEnd] << start
-      session[:eventsStEnd] << end
-      puts "- #{event.summary} (#{start})"
+      start_time = event.start.date || event.start.date_time
+      end_time = event.end.date || event.end.date_time
+      session[:eventsStEnd] << start_time
+      session[:eventsStEnd] << end_time
+      puts "- #{event.summary} (#{start_time})"
     end
   end
 end

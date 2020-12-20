@@ -33,6 +33,8 @@ class TimeSchedulesController < ApplicationController
     session[:endTime] = (@event.enddate + 1).strftime("%Y%m%d %H:%M:%S")
 
     @form = Form::TimeScheduleCollection.new({},days)
+
+    session[:eventsStEnd] = [] if session[:eventsStEnd].nil?
   end
 
   private

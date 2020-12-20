@@ -5,6 +5,9 @@
 
 <% width = 10 %>
 <% loop_times = 48 %>
+<% eventsStEnd = session[:eventsStEnd] %>
+<% eventsStEnd_size = eventsStEnd.size %>
+<% events_count = 0 %>
 
 <%= link_to "googleカレンダーと連携する", session[:url] %>
 
@@ -25,7 +28,16 @@
 	</div>
         <div class="time_schedule" style="cursor:pointer;">
                 <% for num in 0..(loop_times-1) do %>
-                        <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",label:false} %>
+			<% hours = num/2 %>
+			<% minutes = 0%>
+			<% minutes = 30 if num%2 == 1%>
+			<% cell_time = ((stdate+day).strftime("%Y%m%d") + " " + hours.to_s + ":" + minutes.to_s + ":00").to_time %>
+			<% checked = true %>
+			<% if events_count != eventsStEnd_size %>
+				<% checked = false if eventsStEnd[events_count]<cell_time and cell_time<eventsStEnd[events_count+1] %>
+				<% events_count+=2 if eventsStEnd[events_count+1]<cell_time %>
+			<% end %>
+                        <%= t.check_box :"t#{num}",{class:"check_box",style:"width: #{width-0.5}px; left: #{num*width}px",label:false,checked:checked} %>
 			<span class="check_mark" style="left:<%= num*width %>px"></span>
                 <% end %>
         </div>
