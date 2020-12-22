@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'events#new'
+  get "time_schedules/show",to: "time_schedules#show"
   devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   get "time_schedules/list",to: "time_schedules#list"
   get "events/token",to: "events#token"

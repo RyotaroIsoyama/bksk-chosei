@@ -9,12 +9,21 @@
 			<%= f.label :enddate, '①期間の終わりを入力してね' %>
 			<%= f.date_select :enddate, use_month_numbers:true,discard_year:true, class: 'form-control' %>
 			<%= f.hidden_field :span, :value => 1 %>
+			<%= f.hidden_field :user_id, :value => @user.id %>
 			
 			<%= f.label :owner, '②作成者の名前を教えてね' %>
 			<%= f.text_field :owner, class: 'form-control' %>
 
 			<br><br>
 			<%= f.submit "Create", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+	<div class="list-my-events">
+		<p>これまでにあなたが作成したevent！<p>
+		<% @my_events.each do |e| %>
+			<%= e.id %>
+			<%= button_to e.hashforurl,"/time_schedules/show",{method: :get,params: {id: e.id}} %>
+		<br>
 		<% end %>
 	</div>
 </div>

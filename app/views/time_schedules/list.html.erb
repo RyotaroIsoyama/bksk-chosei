@@ -13,13 +13,13 @@
 
 <%= form_with model:@form,url:time_schedules_path,method: :post do |f| %>
 <% day = -1%>
-<%= f.text_field :username %>
-<%= f.hidden_field :user_id, :value => @user.id %>
-<%= f.hidden_field :event_id, :value => @event.id %>
 <%= f.fields_for :time_schedules do |t| %>
     <% day += 1 %>
     <%= one_day = stdate+day %>
 	<%= t.hidden_field :eventday, :value => one_day %>
+	<%= t.text_field :username, :value => @user.username %>
+	<%= t.hidden_field :user_id, :value => @user.id %>
+	<%= t.hidden_field :event_id, :value => @event.id %>
 	<div class="time_schedule_label">
 	  <% for num in 0..23 do %>
 	    <div class="time_schedule_label_cell" style="left:<%= num * 20 %>px">
