@@ -1,4 +1,36 @@
 <h1>InputTimes#show</h1>
 <p>Find me in app/views/input_times/show.html.erb</p>
 
-<%= @members %>
+<% days = (@event.enddate - @event.stdate).to_i + 1 %>
+<% member_count = 0 %>
+<% @members.each do |member| %>
+	<% for day in 0..(days-1) do %>
+		<%= day %>
+		<%= @schedules[member_count+day] %>
+		<div class="time_schedule_label">
+		<% for hour in 0..23 do %>
+			<div class="time_schedule_label_cell" style="left:<%= hour * 20 %>px">
+              			<%= hour %>
+            		</div>
+          	<% end %>
+        	</div>
+        	<div class="time_schedule" style="cursor:pointer;">
+                	<% for num in 0..47 do %>
+                        	<% hours = num/2 %>
+                        	<% minutes = 0%>
+                        	<% minutes = 30 if num%2 == 1%>
+				<% t_num = "t#{num}" %>
+				<% @schedules[0].columns %>
+				<% if @schedules[member_count+day].t0 %>
+					<div class="box_true">
+					</div>
+				<% else %>
+					<div class="box_false">
+					</div>
+                		<% end %>
+			<% end %>
+        	</div>
+	<% end %>
+	<br>
+	<% member_count += 1 %>
+<% end %>
