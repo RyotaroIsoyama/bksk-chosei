@@ -10,10 +10,19 @@ class TimeSchedulesController < ApplicationController
 			@members.push(schedule.username)
 		end
 	end
-  end
 
-  def user
-	@time_schedules = 
+	@event = Event.find(params[:id])
+	stdate = @event.stdate
+	enddate = @event.enddate 
+	logger.debug(stdate)
+	logger.debug(enddate)
+	@schedules = []
+	@members.each do |member_name|
+		schedules = TimeSchedule.where(eventday: stdate..enddate)
+		schedules.each do |s|
+			@schedules.push(s)
+		end
+	end
   end
 
   def new
